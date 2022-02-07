@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Bill type:</strong>
+  <%= @bill.bill_type %>
+</p>
+
+<p>
+  <strong>Begin date:</strong>
+  <%= @bill.begin_date %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @bill.end_time %>
+</p>
+
+<p>
+  <strong>Balance:</strong>
+  <%= @bill.balance %>
+</p>
+
+<%= link_to 'Edit', edit_bill_path(@bill) %> |
+<%= link_to 'Back', bills_path %>

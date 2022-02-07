@@ -1,0 +1,50 @@
+<%= form_with(model: movement) do |form| %>
+  <% if movement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(movement.errors.count, "error") %> prohibited this movement from being saved:</h2>
+
+      <ul>
+        <% movement.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :movement_type %>
+    <select name="movement[movement_type]" class="form-field">
+      <option value="C">Ingreso (Credito)</option>
+      <option value="D">Gasto (Debito)</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <input type="date" name="movement[date]" value="<%= movement.date %>" max="<%=DateTime.current.to_date%>" class="form-field" />
+  </div>
+
+  <div class="field">
+    <%= form.label :time %>
+    <%= form.time_select :time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.number_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bill_id %>
+    <%= form.collection_select(:bill_id, Bill.all, :id, :bill_type) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

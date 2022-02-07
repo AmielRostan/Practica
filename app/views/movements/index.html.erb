@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Movements</h1>
+
+<form method="GET" action="/movements">
+  <strong>Date:</strong> <input type="date" name="date" max="<%=DateTime.current.to_date%>"/>
+  <strong>Cuenta:</strong> <input type="text" name="filter"/>
+  <input type="submit"/>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= link_to "Movement type", movements_path(:sort => true, :by => "movement_type", :order => (params[:order] == "asc" ? "desc" : "asc")) %></th>
+      <th><%= link_to "Date", movements_path(:sort => true, :by => "date", :order => (params[:order] == "asc" ? "desc" : "asc")) %></th>
+      <th><%= link_to "Time", movements_path(:sort => true, :by => "time", :order => (params[:order] == "asc" ? "desc" : "asc")) %></th>
+      <th><%= link_to "Amount", movements_path(:sort => true, :by => "amount", :order => (params[:order] == "asc" ? "desc" : "asc")) %></th>
+      <th><%= link_to "Description", movements_path(:sort => true, :by => "description", :order => (params[:order] == "asc" ? "desc" : "asc")) %></th>
+      <th><%= link_to "Bill", movements_path(:sort => true, :by => "bill_id", :order => (params[:order] == "asc" ? "desc" : "asc")) %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @movements.each do |movement| %>
+      <tr>
+        <td><%= movement.movement_type %></td>
+        <td><%= movement.date %></td>
+        <td><%= movement.time %></td>
+        <td><%= movement.amount %></td>
+        <td><%= movement.description %></td>
+        <td><%= movement.bill.bill_type %></td>
+        <td><%= link_to 'Show', movement %></td>
+        <!-- <td><%#= link_to 'Edit', edit_movement_path(movement) %></td> -->
+        <td><%= link_to 'Destroy', movement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Movement', new_movement_path %>
